@@ -3,7 +3,7 @@
 ### Executive Summary
 This solution equips service teams with a single AI assistant that can answer both **product questions** and **account-specific inquiries** with speed, accuracy, and compliance. 
  
-It merges **retrieval-augmented generation** for documentation with **secure data access** for structured contract data.  
+It merges **Retrieval-Augmented Generation (RAG)** for documentation with **secure data access** for structured contract data.  
 
 The design moves from a short proof-of-value pilot to a governed, enterprise-scale deployment using production-ready AI, data, and cloud services already common in analytics organizations.
 
