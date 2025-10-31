@@ -77,13 +77,23 @@ Enterprise-ready conversational analytics layer with full observability, governa
 #### Phase 1 — Pilot
 ```mermaid
 flowchart TD
-    A[User Interface] -> B[Intent Classifier]
-    B -> C{Router}
-    C -->|How-to| D[Knowledge Retrieval<br/>(Docs + Vector DB + LLM)]
-    C -->|Contract| E[SQL Query API<br/>(Read-Only DB)]
-    D --> F[Response Composer]
-    E --> F
-    F -> G[User Output]
+    A[User or Agent UI] --> B[API Gateway]
+    B --> C[Router Service]
+    C -->|Knowledge Request| D[Knowledge Service (Vector DB and LLM Retriever)]
+    C -->|Contract Request| E[Contract Service (Cloud SQL API)]
+    C -->|Feedback| F[Feedback Service (RLHF Loop)]
+    D --> G[Response Composer]
+    E --> G
+    F --> H[Model Feedback Store]
+    G --> I[Analytics Dashboard]
+
+    subgraph Observability
+        K[Prometheus / Grafana / OpenTelemetry]
+    end
+    C --> K
+    D --> K
+    E --> K
+    F --> K
 ```
 
 #### Phase 2 — Production
