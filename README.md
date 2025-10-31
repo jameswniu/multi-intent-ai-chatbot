@@ -1,10 +1,8 @@
 # Multi-Intent AI Chatbot Assistant
 
 ### Executive Summary
-This solution equips service teams with a single AI assistant that can answer both **product questions** and **account-specific inquiries** with speed, accuracy, and compliance. 
- 
-It merges **retrieval-augmented generation ("RAG")** for documentation with **secure data access** for structured contract data.  
-
+This solution equips service teams with a single AI assistant that can answer both **product questions** and **account-specific inquiries** with speed, accuracy, and compliance.  
+It merges **retrieval-augmented generation** for documentation with **secure data access** for structured contract data.  
 The design moves from a short proof-of-value pilot to a governed, enterprise-scale deployment using production-ready AI, data, and cloud services already common in analytics organizations.
 
 ---
@@ -124,6 +122,56 @@ flowchart TD
 - Each module can be delivered independently and integrated through APIs, allowing parallel workstreams and controlled rollout.  
 
 ---
+
+
+
+---
+
+### Repository Structure
+```
+ai-chatbot/
+├── phase1_pilot/
+│   ├── app/
+│   │   ├── main.py                 # FastAPI or Streamlit app entrypoint
+│   │   ├── router.py               # Intent classification and routing logic
+│   │   ├── chains.py               # LangChain QA + SQL logic
+│   │   └── utils.py                # Helper functions (logging, validation)
+│   ├── data/
+│   │   ├── user_guide_sample.pdf   # Example documentation source
+│   │   └── mock_contracts.sql      # Sample SQL dataset
+│   ├── evals/
+│   │   └── eval_results_phase1.md  # Metrics and evaluation notes
+│   ├── Dockerfile
+│   └── ci_cd.yaml                  # GitHub Actions config (build + test)
+│
+├── phase2_production/
+│   ├── services/
+│   │   ├── router_service.py       # Microservice for routing & orchestration
+│   │   ├── knowledge_service.py    # Vector DB + LLM retriever microservice
+│   │   ├── contract_service.py     # Secure SQL query microservice
+│   │   └── feedback_service.py     # RLHF feedback ingestion service
+│   ├── helm/
+│   │   └── deployment.yaml         # Helm chart for Kubernetes deploy
+│   ├── observability/
+│   │   ├── prometheus_config.yml   # Prometheus metrics setup
+│   │   └── grafana_dashboard.json  # Grafana dashboard template
+│   ├── evals/
+│   │   └── eval_results_phase2.md  # Post-deployment metrics
+│   ├── Dockerfile
+│   └── ci_cd_pipeline.yaml         # Multi-stage pipeline (build/test/deploy)
+│
+├── guardrails/
+│   ├── pii_filter.py               # Removes sensitive data before responses
+│   ├── sql_validator.py            # Ensures safe SQL generation
+│   └── prompt_injection_guard.py   # Blocks malicious prompts
+│
+└── docs/
+    ├── 01_executive_summary.md     # Business-focused summary
+    ├── 02_architecture_overview.md # Expanded system diagram and flow
+    ├── 03_phase_roadmap.md         # Pilot → Production transition plan
+    └── 04_metrics_and_governance.md# Evaluation, governance, and metrics
+```
+
 
 ### Contact
 Developed by **James W. Niu**  
