@@ -1,4 +1,4 @@
-# AI Support Chatbot — Enterprise Design and Implementation
+# Multi-Intent AI Chatbot Assistant
 
 ### Overview
 This project shows how to design and build an AI-powered support chatbot that helps customer service teams answer product and contract questions quickly and accurately.
@@ -13,13 +13,13 @@ The system is built in two stages:
 
 ### Architecture Flow
 ```
-Chat UI -> Intent Classifier -> Router  
-    ├─ Knowledge QA Chain (FAISS + LLM)  
-    └─ SQL Chain (Mock or Read-Only DB)  
+Chat UI -> Intent Classifier -> Router
+    ├─ Knowledge QA Chain (FAISS + LLM)
+    └─ SQL Chain (Mock or Read-Only DB)
 -> Response Composer -> User
 ```
 
-### What’s Inside
+### What's Inside
 - Simple FastAPI or Streamlit interface for chat
 - LangChain `RetrievalQA` for document search and `SQLDatabaseChain` for contract lookup
 - Basic intent router using zero-shot or few-shot classification
@@ -28,10 +28,10 @@ Chat UI -> Intent Classifier -> Router
 ### Evaluation
 | Category | Metric | Target | Method |
 |-----------|---------|---------|--------|
-| Intent Accuracy | ≥ 80% | 50 labeled queries |
-| SQL Validity | ≥ 90% | Syntax and dry-run validation |
-| Answer Relevance | ≥ 0.8 cosine similarity | Embedding similarity |
-| Latency | < 3 seconds average | Logged request times |
+| Intent Accuracy | ≥ 80% | 50 labeled queries | Manual evaluation |
+| SQL Validity | ≥ 90% | Syntax and dry-run validation | SQL parser |
+| Answer Relevance | ≥ 0.8 cosine similarity | Embedding similarity | Cosine metric |
+| Latency | < 3 seconds average | Logged request times | Timing logs |
 
 ### Guardrails
 - Read-only database schema
@@ -60,14 +60,14 @@ Chat UI -> Intent Classifier -> Router
 
 ### Architecture Flow
 ```
-Chat UI -> API Gateway -> Router Service  
-    ├─ Knowledge Service (Vector DB + LLM Retriever)  
-    ├─ Contract Service (API to Cloud SQL Replica)  
-    └─ Feedback Service (RLHF Pipeline)  
+Chat UI -> API Gateway -> Router Service
+    ├─ Knowledge Service (Vector DB + LLM Retriever)
+    ├─ Contract Service (API to Cloud SQL Replica)
+    └─ Feedback Service (RLHF Pipeline)
 -> Monitoring -> Analytics Dashboard
 ```
 
-### What’s Inside
+### What's Inside
 - Modular FastAPI microservices
 - Fine-tuned MiniLM intent classifier with LLM fallback
 - Template-based NL2SQL generator for safety and consistency
@@ -77,12 +77,12 @@ Chat UI -> API Gateway -> Router Service
 ### Evaluation
 | Category | Metric | Target | Tool |
 |-----------|---------|---------|------|
-| Intent F1 | ≥ 0.95 | Scikit-learn |
-| SQL Semantic Accuracy | ≥ 95% | Read-only replica testing |
-| Answer Quality | BLEU ≥ 0.85 / ROUGE-L ≥ 0.9 | Automated evaluation |
-| Latency P95 | < 2 seconds | Prometheus |
-| Cost per Query | <$0.05 | Cloud cost dashboard |
-| Uptime | ≥ 99.9% | Synthetic monitors |
+| Intent F1 | ≥ 0.95 | Scikit-learn | Classification report |
+| SQL Semantic Accuracy | ≥ 95% | Read-only replica testing | SQL validator |
+| Answer Quality | BLEU ≥ 0.85 / ROUGE-L ≥ 0.9 | Automated evaluation | NLP metrics |
+| Latency P95 | < 2 seconds | Prometheus | API timing |
+| Cost per Query | <$0.05 | Cloud cost dashboard | Billing logs |
+| Uptime | ≥ 99.9% | Synthetic monitors | Health checks |
 
 ### Guardrails
 - Role-based access control (RBAC)
@@ -112,7 +112,7 @@ Chat UI -> API Gateway -> Router Service
 
 ### Repository Structure
 ```
-📦 ai-support-chatbot/
+ai-chatbot/
 ├── phase1_mvp/
 │   ├── app/
 │   ├── data/
@@ -140,7 +140,7 @@ Chat UI -> API Gateway -> Router Service
 ---
 
 ### Contact
-Developed by **James W. Niu**  
+Developed by **James W. Niu**
 Questions: **jameswnarch@gmail.com**
 
 ---
