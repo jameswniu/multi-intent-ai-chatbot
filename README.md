@@ -77,18 +77,36 @@ Enterprise-ready conversational analytics layer with full observability, governa
 #### Phase 1 — Pilot
 ```mermaid
 flowchart TD
+    A[User Interface] --> B[Intent Classifier]
+    B --> C{Router}
+    C -->|How-to Query| D[Knowledge QA Chain - Docs and LLM]
+    C -->|Contract Query| E[SQL Chain - Read Only Database]
+    D --> F[Response Composer]
+    E --> F
+    F --> G[Chat Response to User]
+
+    subgraph Monitoring
+        H[Logs and Metrics]
+        I[LangSmith or Grafana]
+    end
+    F --> H
+```
+
+#### Phase 2 — Production
+```mermaid
+flowchart TD
     A[User or Agent UI] --> B[API Gateway]
     B --> C[Router Service]
-    C -->|Knowledge Request| D[Knowledge Service (Vector DB and LLM Retriever)]
-    C -->|Contract Request| E[Contract Service (Cloud SQL API)]
-    C -->|Feedback| F[Feedback Service (RLHF Loop)]
+    C -->|Knowledge Request| D[Knowledge Service - Vector DB and LLM Retriever]
+    C -->|Contract Request| E[Contract Service - Cloud SQL API]
+    C -->|Feedback| F[Feedback Service - RLHF Loop]
     D --> G[Response Composer]
     E --> G
     F --> H[Model Feedback Store]
     G --> I[Analytics Dashboard]
 
     subgraph Observability
-        K[Prometheus / Grafana / OpenTelemetry]
+        K[Prometheus and Grafana and OpenTelemetry]
     end
     C --> K
     D --> K
@@ -96,29 +114,10 @@ flowchart TD
     F --> K
 ```
 
-#### Phase 2 — Production
-```mermaid
-flowchart TD
-    A[User / Agent UI] -> B[API Gateway]
-    B -> C[Router Service]
-    C -->|Knowledge| D[Knowledge Service<br/>(Vector DB + LLM Retriever)]
-    C -->|Contract| E[Contract Service<br/>(Cloud SQL API)]
-    C -->|Feedback| F[Feedback Service<br/>(RLHF Loop)]
-    D --> G[Response Composer]
-    E --> G
-    G -> H[Analytics Dashboard]
-    subgraph Observability
-        I[Prometheus / Grafana / OpenTelemetry]
-    end
-    C --> I
-    D --> I
-    E --> I
-```
-
 ---
 
 ### Implementation Confidence
-- All components rely on **existing, production-proven cloud and AI tooling** — no custom research or untested frameworks.  
+- All components rely on **existing, production-proven cloud and AI tooling** - no custom research or untested frameworks.  
 - Security and compliance use standard RBAC, logging, and data-access controls familiar to healthcare and analytics environments.  
 - Each module can be delivered independently and integrated through APIs, allowing parallel workstreams and controlled rollout.  
 
