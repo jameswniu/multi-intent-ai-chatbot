@@ -1,4 +1,4 @@
-# AI Support Chatbot — Enterprise Design and Implementation
+# AI Support Chatbot - Enterprise Design and Implementation
 
 ### Overview
 This repository presents a two-phase architecture for an AI-powered support chatbot that assists customer service agents with:
@@ -13,10 +13,10 @@ The project demonstrates both a **Phase 1 Minimal Viable Product (MVP)** and a *
 
 ### Architecture Flow
 ```
-Chat UI → Intent Classifier → Router  
+Chat UI -> Intent Classifier -> Router  
     ├─ Knowledge QA Chain (FAISS + LLM)  
     └─ SQL Chain (Mock or Read-Only DB)  
-→ Response Composer → User
+-> Response Composer -> User
 ```
 
 ### Core Components
@@ -60,11 +60,11 @@ Chat UI → Intent Classifier → Router
 
 ### Architecture Flow
 ```
-Chat UI → API Gateway → Router Service  
+Chat UI -> API Gateway -> Router Service  
     ├─ Knowledge Service (Vector DB + LLM Retriever)  
     ├─ Contract Service (API to Cloud SQL Replica)  
     └─ Feedback Service (RLHF Pipeline)  
-→ Monitoring → Analytics Dashboard
+-> Monitoring -> Analytics Dashboard
 ```
 
 ### Core Components
@@ -140,8 +140,8 @@ Chat UI → API Gateway → Router Service
 ---
 
 ### Contact
-Developed by **[Your Name]**  
-For questions: [your.email@example.com]
+Developed by **James W. Niu**  
+For questions: jameswnarch@gmail.com
 
 ---
 
