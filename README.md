@@ -24,7 +24,7 @@ Prove the concept with an explainable system that runs entirely offline.
 **Core Stack**
 - FastAPI backend  
 - FAISS vector search with SentenceTransformers embeddings  
-- Keyword-based SQL generation with guardrails  
+- Keyword-based SQL generation with validation guardrails  
 - SQLite mock contract database  
 - Docker for deployment and CI/CD
 
@@ -37,10 +37,10 @@ Prove the concept with an explainable system that runs entirely offline.
 
 | Objective | Metric | Target | Owner |
 |------------|---------|---------|--------|
-| Intent Accuracy | ≥ 80 % | Data Science |
-| Response Latency | < 3 s | Engineering |
-| SQL Validation | 100 % Safe | Security |
-| Positive Feedback | ≥ 70 % | CX Team |
+| Accuracy | Intent Classification | ≥ 80% | Data Science |
+| Speed | Response Latency | < 3 s | Engineering |
+| Security | SQL Validation | 100% Safe | Security |
+| Experience | Positive Feedback | ≥ 70% | CX Team |
 
 **Outcome**  
 A reliable, low-cost prototype that proves feasibility and governance readiness before introducing LLMs.
@@ -53,13 +53,17 @@ A reliable, low-cost prototype that proves feasibility and governance readiness 
 Scale the pilot into a production-grade platform that combines LLMs with retrieval and structured data.
 
 **Core Stack**
-- FastAPI microservices on Kubernetes or ECS  
+- FastAPI microservices on Docker or managed containers (ECS)  
 - GPT-4 Turbo integrated with FAISS (RAG pattern)  
 - Natural-language-to-SQL via LLM  
 - RLHF feedback and retraining loop  
 - Prometheus, Grafana, and OpenTelemetry for monitoring  
-- Helm and multi-stage CI/CD pipelines  
-- RBAC and security guardrails
+- Helm for deployment templating (preparing for Kubernetes)  
+- Role-based access control and guardrails
+
+**Helm Clarification**  
+Helm is introduced in Phase 2 as a templating and deployment abstraction to prepare for Kubernetes.  
+It is fully adopted in Phase 3 as part of the orchestration stack.
 
 **What It Adds**
 - LLM-assisted intent classification in the Router Service  
@@ -71,11 +75,11 @@ Scale the pilot into a production-grade platform that combines LLMs with retriev
 
 | Objective | Metric | Target | Owner |
 |------------|---------|---------|--------|
-| Reliability | Uptime ≥ 99.9 % | DevOps |
-| Latency | P95 < 2 s (incl. LLM) | Engineering |
-| Governance | Automated Drift Detection | Data Ops |
-| Cost Efficiency | < $0.05 per query | Finance |
-| Model Updates | Weekly Retraining | Data Science |
+| Reliability | Uptime | ≥ 99.9% | DevOps |
+| Performance | Latency (P95 including LLM) | < 2 s | Engineering |
+| Governance | Drift Detection | Automated | Data Ops |
+| Cost Efficiency | Average Cost per Query | < $0.05 | Finance |
+| Learning Cycle | Model Update Cadence | Weekly Retraining | Data Science |
 
 **Outcome**  
 An enterprise-ready AI assistant that combines structured data, documentation, and natural conversation with transparency and traceability.
@@ -105,10 +109,10 @@ Turn Phase 2 into a cloud-native, self-healing platform that scales automaticall
 
 | Objective | Metric | Target | Owner |
 |------------|---------|---------|--------|
-| Horizontal Scaling | Pods expand under load in < 1 min | DevOps |
-| Reliability | SLA ≥ 99.95 % | DevOps |
-| Resource Efficiency | Node utilization ≥ 80 % | Finance |
-| Deployment Speed | 100 % Zero-Downtime Rollouts | Platform Team |
+| Scalability | Pod Expansion Under Load | < 1 min Reaction Time | DevOps |
+| Reliability | SLA Uptime | ≥ 99.95% | DevOps |
+| Efficiency | Node Utilization | ≥ 80% | Finance |
+| Deployment | Rollout Downtime | 0% (Zero-Downtime Guaranteed) | Platform Team |
 
 **Outcome**  
 A global, cloud-native chatbot platform that scales intelligently and recovers automatically — ready for enterprise traffic and future model integrations.
@@ -142,10 +146,10 @@ flowchart TD
 ```mermaid
 flowchart TD
     A[User or Agent UI] --> B[API Gateway]
-    B --> C[Router Service (LLM-assisted Intent Classification)]
-    C -->|Knowledge Request| D[Knowledge Service (RAG with FAISS and LLM)]
-    C -->|Contract Request| E[Contract Service (LLM for SQL Generation)]
-    C -->|Feedback| F[Feedback Service (RLHF Loop)]
+    B --> C[Router Service - LLM Assisted Intent Classification]
+    C -->|Knowledge Request| D[Knowledge Service - RAG with FAISS and LLM]
+    C -->|Contract Request| E[Contract Service - LLM for SQL Generation]
+    C -->|Feedback| F[Feedback Service - RLHF Loop]
     D --> G[Response Composer]
     E --> G
     F --> H[Feedback Store]
