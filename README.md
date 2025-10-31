@@ -12,6 +12,23 @@ The system is built in two stages:
 ## Phase 1: MVP Implementation
 
 ### Architecture Flow
+```mermaid
+flowchart TD
+    A[User / Agent Chat UI] --> B[Intent Classifier]
+    B --> C{Router}
+    C -->|How-to Query| D[Knowledge QA Chain<br/>(Docs + Embeddings + LLM)]
+    C -->|Contract Query| E[SQL Chain<br/>(Mock or Read-Only DB)]
+    D --> F[Response Composer]
+    E --> F
+    F --> G[Chat Response to User]
+
+    subgraph Monitoring
+        H[Logs & Metrics]
+        I[LangSmith / Grafana]
+    end
+    F --> H
+```
+
 ```
 Chat UI -> Intent Classifier -> Router
     ├─ Knowledge QA Chain (FAISS + LLM)
@@ -59,6 +76,28 @@ Chat UI -> Intent Classifier -> Router
 ## Phase 2: Production Scaling
 
 ### Architecture Flow
+```mermaid
+flowchart TD
+    A[User / Agent Chat UI] --> B[API Gateway]
+    B --> C[Router Service]
+    C -->|Knowledge Request| D[Knowledge Service<br/>(Vector DB + LLM Retriever)]
+    C -->|Contract Request| E[Contract Service<br/>(Cloud SQL via API)]
+    C -->|Feedback| F[Feedback Service<br/>(RLHF Pipeline)]
+    D --> G[Response Composer]
+    E --> G
+    F --> H[Model Feedback Store]
+    G --> I[Analytics Dashboard]
+    I --> J[User Response]
+
+    subgraph Observability
+        K[Prometheus / Grafana / OpenTelemetry]
+    end
+    C --> K
+    D --> K
+    E --> K
+    F --> K
+```
+
 ```
 Chat UI -> API Gateway -> Router Service
     ├─ Knowledge Service (Vector DB + LLM Retriever)
