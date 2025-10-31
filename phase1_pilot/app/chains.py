@@ -1,3 +1,4 @@
+
 """
 KnowledgeAgent using FAISS vector database for offline retrieval.
 """

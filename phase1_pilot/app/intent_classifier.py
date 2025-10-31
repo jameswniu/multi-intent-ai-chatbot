@@ -1,3 +1,4 @@
+
 """
 IntentClassifier identifies the intent behind a user's query.
 Uses simple keyword-based scoring to decide between 'knowledge', 'contract', or 'unknown'.

@@ -1,3 +1,4 @@
+
 """
 ContractAgent with rule + keyword mapping SQL generator.
 No LLM used - fully local and deterministic.
