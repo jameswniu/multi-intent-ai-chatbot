@@ -1,179 +1,84 @@
 # Multi-Intent AI Chatbot Assistant
 
 ### Executive Summary
-This solution equips service teams with a single AI assistant that can answer both **product questions** and **account-specific inquiries** with speed, accuracy, and compliance.  
+The Multi-Intent AI Chatbot Assistant helps service and analytics teams answer both product-related and account-specific questions with accuracy, compliance, and scalability.
 
-It merges **retrieval-augmented generation** for documentation with **secure data access** for structured contract data.  
+It evolves in three clear stages:
 
-The design moves from a short proof-of-value pilot to a governed, enterprise-scale deployment using production-ready AI, data, and cloud services already common in analytics organizations.
+1. **Phase 1 – Pre-LLM (Deterministic Pilot)**  
+   A rule-based, offline system using FAISS vector retrieval and keyword-to-SQL mapping.
+
+2. **Phase 2 – Full LLM (Production Deployment)**  
+   A retrieval-augmented generation (RAG) platform with microservices, continuous learning, and observability.
+
+3. **Phase 3 – Scaling & Orchestration (Kubernetes)**  
+   Converts Phase 2 containers into a fully orchestrated, auto-scaling platform.
 
 ---
 
-## Phase 1 - Pilot Implementation (4–6 weeks)
+## Phase 1 – Pre-LLM Pilot (4–6 weeks)
+*(existing section retained — no change needed)*
+
+---
+
+## Phase 2 – Full LLM Production (3–6 months)
+*(existing section retained — no change needed)*
+
+---
+
+## Phase 3 – Scaling & Orchestration (6–12 months)
 
 **Purpose**  
-Prove functional value, measure accuracy, and collect user feedback with minimal infrastructure.
+Transform the Phase 2 LLM-augmented system into a fully orchestrated, self-healing, multi-node platform running on Kubernetes.
 
-**Core Stack (All Off-the-Shelf)**  
-- FastAPI or Streamlit UI  
-- Managed LLM API (OpenAI / Azure OpenAI / Anthropic)  
-- LangChain or equivalent for RAG orchestration  
-- Vector DB (FAISS / Pinecone) for documentation retrieval  
-- Mock or read-only PostgreSQL for contract data  
-- Docker container for deployment
+**Core Stack Enhancements**  
+- Kubernetes (GKE / EKS / AKS) for orchestration  
+- Helm Charts for deployment automation  
+- Horizontal Pod Autoscaler (HPA) for load scaling  
+- Ingress Controller + Load Balancer for routing  
+- GitOps (Argo CD / Flux) for continuous rollout  
+- Centralized observability with Prometheus and Grafana  
 
-**Deliverable**  
-A working chatbot that:  
-1. Detects user intent (“how-to” vs “contract”).  
-2. Retrieves information from documents or SQL.  
-3. Logs performance and feedback for analysis.
+**Deliverables**  
+1. Multi-node Kubernetes cluster with all chatbot services containerized.  
+2. Helm-managed deployments and versioning.  
+3. Auto-scaling and rolling updates based on load.  
+4. Unified monitoring and logging across services.  
 
 **Success Metrics**
 
 | Objective | Metric | Target | Owner |
 |------------|---------|---------|--------|
-| Intent Classification | Accuracy | ≥ 80 % | Data Science |
-| Response Quality | Human rating | ≥ 4 / 5 | CX Team |
-| Latency | Avg response time | < 3 s | Engineering |
-| Security | Data isolation audit | Pass | IT / Compliance |
+| Horizontal Scaling | Pods auto-expand under load | ≤ 1 min reaction | DevOps |
+| Reliability | SLA Uptime | ≥ 99.95 % | DevOps |
+| Cost Efficiency | Node Utilization | ≥ 80 % | Finance |
+| Deployment Speed | Zero-Downtime Rollouts | 100 % success | Platform Team |
 
 **Outcome**  
-Validated business case with measurable gains in agent efficiency and user satisfaction.
+A cloud-native, self-healing AI assistant that can scale globally across regions while maintaining governance, performance, and cost efficiency.
+
+<!-- 
+[PHASE 3 CODE HOOKS]  
+- Helm templates → (./phase3_scaling/helm/)  
+- Kubernetes YAML samples → (./phase3_scaling/deployment.yaml)  
+- Monitoring dashboards → (./phase3_scaling/observability/)  
+- GitOps pipeline stubs → (./phase3_scaling/ci_cd/)  
+These placeholders can be expanded once the orchestration layer is implemented.
+-->
 
 ---
 
-## Phase 2 - Enterprise Deployment (3–6 months)
+### Repository Structure (High-Level)
+*(existing structure retained — can append phase3_scaling folder later)*
 
-**Purpose**  
-Operationalize the pilot into a governed, observable, and continuously improving platform.
-
-**Core Stack (Proven Enterprise Tech)**  
-- Microservice architecture (FastAPI + Kubernetes / ECS)  
-- Fine-tuned intent model (MiniLM / BERT-derived) with LLM fallback  
-- Managed vector store and cloud SQL (Azure SQL / Snowflake)  
-- Monitoring via Prometheus + Grafana, tracing via OpenTelemetry  
-- CI/CD pipeline (GitHub Actions + Helm)  
-- Governance + RBAC + PII filtering  
-- Feedback loop for continuous learning (RLHF pipeline)
-
-**Deliverable**  
-A production system that scales across regions, integrates with internal data sources, and self-monitors for drift, cost, and reliability.
-
-**Success Metrics**
-
-| Objective | Metric | Target | Owner |
-|------------|---------|---------|--------|
-| Reliability | Uptime SLA | ≥ 99.9 % | DevOps |
-| Performance | P95 latency | < 2 s | Engineering |
-| Governance | Drift detection & audit | Automated | Data Ops |
-| Cost Efficiency | Avg cost per query | <$ 0.05 | Finance |
-| Continuous Learning | Model update cycle | Weekly | Data Science |
-
-**Outcome**  
-Enterprise-ready conversational analytics layer with full observability, governance, and cost control.
-
----
-
-### Architecture Overview
-
-#### Phase 1 - Pilot
-```mermaid
-flowchart TD
-    A[User Interface] --> B[Intent Classifier]
-    B --> C{Router}
-    C -->|How-to Query| D[Knowledge QA Chain - Docs and LLM]
-    C -->|Contract Query| E[SQL Chain - Read Only Database]
-    D --> F[Response Composer]
-    E --> F
-    F --> G[Chat Response to User]
-
-    subgraph Monitoring
-        H[Logs and Metrics]
-        I[LangSmith or Grafana]
-    end
-    F --> H
-```
-
-#### Phase 2 - Production
-```mermaid
-flowchart TD
-    A[User or Agent UI] --> B[API Gateway]
-    B --> C[Router Service]
-    C -->|Knowledge Request| D[Knowledge Service - Vector DB and LLM Retriever]
-    C -->|Contract Request| E[Contract Service - Cloud SQL API]
-    C -->|Feedback| F[Feedback Service - RLHF Loop]
-    D --> G[Response Composer]
-    E --> G
-    F --> H[Model Feedback Store]
-    G --> I[Analytics Dashboard]
-
-    subgraph Observability
-        K[Prometheus and Grafana and OpenTelemetry]
-    end
-    C --> K
-    D --> K
-    E --> K
-    F --> K
-```
-
----
-
-### Implementation Confidence
-- All components rely on **existing, production-proven cloud and AI tooling** - no custom research or untested frameworks.  
-- Security and compliance use standard RBAC, logging, and data-access controls familiar to healthcare and analytics environments.  
-- Each module can be delivered independently and integrated through APIs, allowing parallel workstreams and controlled rollout.  
-
----
-
-
-
----
-
-### Repository Structure
 ```
 multi-intent-ai-chatbot-assistant/
 ├── phase1_pilot/
-│   ├── app/
-│   │   ├── main.py                 # FastAPI or Streamlit app entrypoint
-│   │   ├── router.py               # Intent classification and routing logic
-│   │   ├── chains.py               # LangChain QA + SQL logic
-│   │   └── utils.py                # Helper functions (logging, validation)
-│   ├── data/
-│   │   ├── user_guide_sample.pdf   # Example documentation source
-│   │   └── mock_contracts.sql      # Sample SQL dataset
-│   ├── evals/
-│   │   └── eval_results_phase1.md  # Metrics and evaluation notes
-│   ├── Dockerfile
-│   └── ci_cd.yaml                  # GitHub Actions config (build + test)
-│
 ├── phase2_production/
-│   ├── services/
-│   │   ├── router_service.py       # Microservice for routing & orchestration
-│   │   ├── knowledge_service.py    # Vector DB + LLM retriever microservice
-│   │   ├── contract_service.py     # Secure SQL query microservice
-│   │   └── feedback_service.py     # RLHF feedback ingestion service
-│   ├── helm/
-│   │   └── deployment.yaml         # Helm chart for Kubernetes deploy
-│   ├── observability/
-│   │   ├── prometheus_config.yml   # Prometheus metrics setup
-│   │   └── grafana_dashboard.json  # Grafana dashboard template
-│   ├── evals/
-│   │   └── eval_results_phase2.md  # Post-deployment metrics
-│   ├── Dockerfile
-│   └── ci_cd_pipeline.yaml         # Multi-stage pipeline (build/test/deploy)
-│
-├── guardrails/
-│   ├── pii_filter.py               # Removes sensitive data before responses
-│   ├── sql_validator.py            # Ensures safe SQL generation
-│   └── prompt_injection_guard.py   # Blocks malicious prompts
-│
-└── docs/
-    ├── 01_executive_summary.md     # Business-focused summary
-    ├── 02_architecture_overview.md # Expanded system diagram and flow
-    ├── 03_phase_roadmap.md         # Pilot → Production transition plan
-    └── 04_metrics_and_governance.md# Evaluation, governance, and metrics
+└── phase3_scaling/        # [To Be Added in Future Expansion]
 ```
 
+---
 
 ### Contact
 Developed by **James W. Niu**  
