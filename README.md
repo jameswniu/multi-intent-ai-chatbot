@@ -7,7 +7,7 @@ The design moves from a short proof-of-value pilot to a governed, enterprise-sca
 
 ---
 
-## Phase 1 — Pilot Implementation (4–6 weeks)
+## Phase 1 - Pilot Implementation (4–6 weeks)
 
 **Purpose**  
 Prove functional value, measure accuracy, and collect user feedback with minimal infrastructure.
@@ -40,7 +40,7 @@ Validated business case with measurable gains in agent efficiency and user satis
 
 ---
 
-## Phase 2 — Enterprise Deployment (3–6 months)
+## Phase 2 - Enterprise Deployment (3–6 months)
 
 **Purpose**  
 Operationalize the pilot into a governed, observable, and continuously improving platform.
@@ -74,7 +74,7 @@ Enterprise-ready conversational analytics layer with full observability, governa
 
 ### Architecture Overview
 
-#### Phase 1 — Pilot
+#### Phase 1 - Pilot
 ```mermaid
 flowchart TD
     A[User Interface] --> B[Intent Classifier]
@@ -92,7 +92,7 @@ flowchart TD
     F --> H
 ```
 
-#### Phase 2 — Production
+#### Phase 2 - Production
 ```mermaid
 flowchart TD
     A[User or Agent UI] --> B[API Gateway]
